@@ -11,8 +11,8 @@ case class Position(point: Point, direction: Direction) {
   }
 
   def moveOneStep(grid: Grid): Position = direction match {
-    case direction: East => giveAppropriatePosition(grid, new Point(point.x - 1, point.y))
-    case direction: West => giveAppropriatePosition(grid, new Point(point.x + 1, point.y))
+    case direction: East => giveAppropriatePosition(grid, new Point(point.x + 1, point.y))
+    case direction: West => giveAppropriatePosition(grid, new Point(point.x - 1, point.y))
     case direction: North => giveAppropriatePosition(grid, new Point(point.x, point.y + 1))
     case direction: South => giveAppropriatePosition(grid, new Point(point.x, point.y - 1))
   }
