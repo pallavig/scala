@@ -1,8 +1,11 @@
 package top
 
+import top.commands._
 import top.directions.Direction
 
 class Session(val grid: Grid,val rovers: List[MarsRover]) {
+  val map: Map[String, Command] = Map("L"->TurnRoverLeft, "R"->TurnRoverRight, "M"->MoveRover)
+
   def update(newRover: String, command: String): Session = {
     val inputInfoForRover = newRover.split(" ")
     val direction = Direction(inputInfoForRover(2))
@@ -14,9 +17,7 @@ class Session(val grid: Grid,val rovers: List[MarsRover]) {
     var rover = new MarsRover(roverStartingPosition, grid)
 
     for (instruction <- command) {
-      if (instruction == 'L') rover = rover.turnLeft
-      if (instruction == 'R') rover = rover.turnRight
-      if (instruction == 'M') rover = rover.move
+      rover = map.getOrElse(instruction.toString, DoNothing).execute(rover)
     }
 
     new Session(grid, rovers :+ rover)
